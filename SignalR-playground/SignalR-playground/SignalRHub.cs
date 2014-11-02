@@ -10,7 +10,24 @@ namespace SignalR_playground
     {
         public void Hello(string name)
         {
-            Clients.All.hello("Hello says " + name);
+            if (Context.User != null && Context.User.Identity.IsAuthenticated)
+            {
+                var tmpName = Context.User.Identity.Name;
+                Clients.All.hello("Hello says " + name + " (from " + tmpName + ")");
+            }
+            else
+            {
+                Clients.All.hello("Hello says " + name + " (from anonymous)");
+            }
         }
+
+        //public override System.Threading.Tasks.Task OnConnected()
+        //{
+        //    if (Context.User != null && Context.User.Identity.IsAuthenticated)
+        //    {
+        //        var tmpName = Context.User.Identity.Name;
+        //    }
+        //    return base.OnConnected();
+        //}
     }
 }

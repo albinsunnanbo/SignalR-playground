@@ -58,11 +58,16 @@ namespace SignalR_playground
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+#if DEBUG
+                ClientId = "346405427262-5g62ipp167u7tpkvvcq916u2ig00hbec.apps.googleusercontent.com",
+                ClientSecret = "qOk872pvAm4Z7j9ypDD-AdCk"
+#else
+                ClientId = "346405427262-fsfr0082cmbumb5r4mb42ugje36r9kd7.apps.googleusercontent.com",
+                ClientSecret = "hsRTWAbl0N0arF7c7ID4WRnT"
+#endif
+            });
         }
     }
 }
