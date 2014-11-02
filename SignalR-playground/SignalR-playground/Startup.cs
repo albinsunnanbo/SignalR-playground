@@ -8,6 +8,7 @@ namespace SignalR_playground
     {
         public void Configuration(IAppBuilder app)
         {
+            app.MapSignalR(); 
             ConfigureAuth(app);
         }
     }
