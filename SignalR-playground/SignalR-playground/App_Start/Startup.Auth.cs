@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using SignalR_playground.Models;
+using System.Configuration;
 
 namespace SignalR_playground
 {
@@ -34,7 +35,7 @@ namespace SignalR_playground
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
@@ -60,13 +61,8 @@ namespace SignalR_playground
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-#if DEBUG
-                ClientId = "346405427262-5g62ipp167u7tpkvvcq916u2ig00hbec.apps.googleusercontent.com",
-                ClientSecret = "qOk872pvAm4Z7j9ypDD-AdCk"
-#else
-                ClientId = "346405427262-fsfr0082cmbumb5r4mb42ugje36r9kd7.apps.googleusercontent.com",
-                ClientSecret = "hsRTWAbl0N0arF7c7ID4WRnT"
-#endif
+                ClientId = ConfigurationManager.AppSettings["GoogleAuthClientId"],
+                ClientSecret = ConfigurationManager.AppSettings["GoogleAuthClientSecret"],
             });
         }
     }
