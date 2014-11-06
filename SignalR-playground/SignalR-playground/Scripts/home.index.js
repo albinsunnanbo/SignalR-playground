@@ -2,9 +2,15 @@
     // Reference the auto-generated proxy for the hub.
     var chat = $.connection.signalRHub;
     // Create a function that the hub can call back to display messages.
-    chat.client.hello = function (message) {
-        // Add the message to the page.
-        $('#output').append('<p>' + htmlEncode(message) + '</p>');
+    chat.client.hello = function (messages) {
+        // if just a single string, wrap in an array
+        if (typeof messages === 'string') {
+            messages = [messages];
+        }
+        // Add the messages to the page.
+        $.each(messages, function (idx, message) {
+            $('#output').append('<p>' + htmlEncode(message) + '</p>');
+        });
     };
     // Get the user name and store it to prepend to messages.
     // Start the connection.
